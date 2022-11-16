@@ -15,7 +15,7 @@ const schema = buildSchema(`
 
   type Query{
     getCourses: [Course]
-    getCOurse(id: ID!): Course 
+    getCourse(id: ID!): Course 
   }
 `);//template string
 
@@ -25,6 +25,8 @@ const root = {
     },
     getCourse({ id }){
         console.log();
+        const course = courses.find( (course)=> id == course.id);
+        return course;
     }
 }
 

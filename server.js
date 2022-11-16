@@ -14,13 +14,17 @@ const schema = buildSchema(`
   }
 
   type Query{
-    getCourses: [Course] 
+    getCourses: [Course]
+    getCOurse(id: ID!): Course 
   }
 `);//template string
 
 const root = {
     getCourses(){
         return courses;
+    },
+    getCourse({ id }){
+        console.log();
     }
 }
 

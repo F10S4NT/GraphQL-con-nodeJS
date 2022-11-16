@@ -20,7 +20,7 @@ const schema = buildSchema(`
 
   type Mutation{
     addCourse(title: String!, views: Int): Course
-    updateCourse(id: ID!,title: String!, views: Int): Course
+    updateCourse(id: ID!, title: String!, views: Int): Course
   }
 `);//template string
 
@@ -40,7 +40,7 @@ const root = {
         return course;
     },
     updateCourse({id, title, views}){
-        const courseIndex = courses.findIndex((courses)=> id ===course.id);
+        const courseIndex = courses.findIndex((course)=> id ===course.id);
         const course = courses[courseIndex];
 
         const newCourse = Object.assign(course,{title, views});

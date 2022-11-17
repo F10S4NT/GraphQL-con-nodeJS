@@ -1,8 +1,9 @@
 const express = require('express')
 const {buildSchema} = require('graphql')
 const expressGraphQL = require('express-graphql')
-const courses = require('./courses');
 
+
+let courses = require('./courses');
 const app = express();
 
 // esquema de graphql
@@ -18,6 +19,10 @@ const schema = buildSchema(`
     views: Int
   }
 
+  type Alert{
+    message: String
+  }
+
   type Query{
     getCourses: [Course]
     getCourse(id: ID!): Course 
@@ -26,6 +31,7 @@ const schema = buildSchema(`
   type Mutation{
     addCourse(input: CourseInput): Course
     updateCourse(id: ID!, input: CourseInput): Course
+    deleteCourse(id: ID!): Alert
   }
 `);//template string
 
@@ -52,6 +58,13 @@ const root = {
         course[courseIndex] = newCourse;
 
         return newCourse;
+    },
+    deleteCourse({id}){
+        courses = courses.filter((course)=> course.id != id);
+
+        return{
+            mesage: "curso eliminado"
+        }
     }
 }
 
